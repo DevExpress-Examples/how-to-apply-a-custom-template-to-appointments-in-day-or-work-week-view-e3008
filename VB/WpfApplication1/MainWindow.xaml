@@ -1,0 +1,70 @@
+<Window x:Class="WpfApplication1.MainWindow"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:dxsch="http://schemas.devexpress.com/winfx/2008/xaml/scheduler"
+        xmlns:dxschint="http://schemas.devexpress.com/winfx/2008/xaml/scheduler/internal"
+        Title="MainWindow" Height="350" Width="525" >
+    <Window.Resources>
+        <DataTemplate x:Key="VerticalAppointmentContentTemplate">
+            <Grid x:Name="aptContent" 
+          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+          Background="Transparent">
+                <StackPanel>
+                    <dxschint:VerticalAppointmentClockControl FontFamily="Tahoma" FontSize="14"
+                                                      HorizontalAlignment="Center"
+                                                      ViewInfo="{Binding}"/>
+                    <TextBlock FontFamily="Tahoma" FontSize="14" FontWeight="Bold"
+                       TextAlignment="Center" TextWrapping="Wrap"
+                       Text="{Binding Subject}"/>
+                    <TextBlock FontFamily="Tahoma" FontSize="14"
+                       TextAlignment="Center"
+                       Text="{Binding Location}"/>
+
+                    <WrapPanel Orientation="Vertical"
+                       Margin="2,5,2,2"
+                       Background="#EDFCFCBB">
+                        <WrapPanel.Effect>
+                            <DropShadowEffect Color="Black" Direction="320"
+                                      ShadowDepth="5" BlurRadius="5" Opacity="0.3"/>
+                        </WrapPanel.Effect>
+                        <TextBlock Margin="5,2,2,2"
+                            FontSize="14" FontFamily="MV Boli"
+                            Text="Notes:"/>
+                        <TextBlock Margin="5,0,2,2"
+                            FontFamily="MV Boli" FontSize="14"
+                            TextWrapping="Wrap" TextAlignment="Left"
+                            Text="{Binding Description}"/>
+                    </WrapPanel>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+
+    <Grid>
+        <dxsch:SchedulerControl Name="schedulerControl1"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+
+            <dxsch:SchedulerControl.DayView>
+                <dxsch:DayView 
+            DayCount="2"
+            VerticalAppointmentContentTemplate="{StaticResource VerticalAppointmentContentTemplate}">
+                    <dxsch:DayView.AppointmentDisplayOptions>
+                        <dxsch:SchedulerDayViewAppointmentDisplayOptions
+                    EndTimeVisibility="Always" StartTimeVisibility="Always"/>
+                    </dxsch:DayView.AppointmentDisplayOptions>
+                </dxsch:DayView>
+            </dxsch:SchedulerControl.DayView>
+
+            <dxsch:SchedulerControl.WorkWeekView>
+                <dxsch:WorkWeekView 
+            VerticalAppointmentContentTemplate="{StaticResource VerticalAppointmentContentTemplate}">
+                    <dxsch:WorkWeekView.AppointmentDisplayOptions>
+                        <dxsch:SchedulerDayViewAppointmentDisplayOptions
+                    EndTimeVisibility="Always" StartTimeVisibility="Always"/>
+                    </dxsch:WorkWeekView.AppointmentDisplayOptions>
+                </dxsch:WorkWeekView>
+            </dxsch:SchedulerControl.WorkWeekView>
+
+        </dxsch:SchedulerControl>
+    </Grid>
+</Window>
